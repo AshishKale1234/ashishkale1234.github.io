@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashish Kale | Robotics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:      #1A56C4; --blue-dk: #1040A0; --blue-lt: #EBF2FD; --blue-bd: #C3D9F8;
+      --text:      #0D1117; --text-mid: #374151; --text-mute: #6B7280;
+      --bg:        #FFFFFF; --surface: #F7F9FC; --border: #E4E9F0; --border-md: #CDD5E0;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --max: 900px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 17px; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.93); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); height: 62px; display: flex; align-items: center; padding: 0 32px; justify-content: space-between; }
+    .nav-logo { font-size: 16px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--text-mute); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+    /* SHARED */
+    .sec { max-width: var(--max); margin: 0 auto; padding: 88px 24px; }
+    .eyebrow { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .sec-title { font-size: 40px; font-weight: 700; color: var(--text); letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 12px; }
+    .sec-sub { font-size: 18px; line-height: 1.7; color: var(--text-mute); max-width: 580px; margin-bottom: 48px; }
+    .alt-bg { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .sep { border-top: 1px solid var(--border); }
+
+    /* HERO + ABOUT */
+    #home { padding: 72px 24px; max-width: var(--max); margin: 0 auto; }
+    .hero-grid { display: grid; grid-template-columns: 200px 1fr; gap: 52px; align-items: center; }
+    .hero-avatar { width: 185px; height: 185px; border-radius: 50%; border: 3px solid var(--blue-bd); object-fit: cover; object-position: center top; display: block; box-shadow: 0 0 0 6px var(--blue-lt); }
+    .hero-name { font-size: clamp(40px, 6vw, 64px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.05; color: var(--text); margin-bottom: 14px; }
+    .hero-tagline { font-size: 20px; color: var(--blue); font-weight: 500; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .hero-sub { font-size: 15px; color: var(--text-mute); margin-bottom: 16px; line-height: 1.6; }
+    .hero-bio { font-size: 16px; line-height: 1.8; color: var(--text-mid); margin-bottom: 28px; }
+    .hero-divider { width: 40px; height: 3px; background: var(--blue); border-radius: 2px; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: white; background: var(--blue); padding: 11px 24px; border-radius: var(--r-sm); text-decoration: none; transition: background 0.16s, transform 0.1s; font-family: var(--font); border: none; cursor: pointer; }
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: var(--blue); background: transparent; border: 1.5px solid var(--blue-bd); padding: 10px 24px; border-radius: var(--r-sm); text-decoration: none; transition: background 0.16s, border-color 0.16s; font-family: var(--font); cursor: pointer; }
+    .btn-secondary:hover { background: var(--blue-lt); border-color: var(--blue); }
+    .hero-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+    .hero-link { font-size: 13px; font-weight: 500; color: var(--text-mute); text-decoration: none; display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .hero-link:hover { color: var(--blue); }
+
+    /* EDUCATION — single column stack */
+    .edu-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .edu-uni-card { border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: var(--r-lg); padding: 24px; background: var(--bg); }
+    .edu-uni-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+    .edu-uni-logo { width: 56px; height: 56px; border-radius: var(--r-sm); object-fit: contain; border: 1px solid var(--border); background: white; flex-shrink: 0; padding: 4px; }
+    .edu-uni-name { font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin-bottom: 3px; }
+    .edu-uni-degree { font-size: 15px; font-weight: 500; color: var(--blue); margin-bottom: 3px; }
+    .edu-uni-meta { font-size: 13px; color: var(--text-mute); }
+    .courses-block { border-top: 1px solid var(--border); padding-top: 20px; }
+    .courses-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute); margin-bottom: 16px; }
+    .year-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+    .year-row:last-child { margin-bottom: 0; }
+    .year-tag { font-size: 11px; font-weight: 700; color: var(--blue-dk); background: var(--blue-lt); border: 1px solid var(--blue-bd); padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .course-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { font-size: 12px; font-weight: 500; padding: 4px 12px; background: var(--surface); border: 1px solid var(--border-md); border-radius: 999px; color: var(--text-mid); }
+
+    /* SKILLS */
+    .skills-wrap { display: flex; flex-direction: column; }
+    .skill-row { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border); }
+    .skill-row:last-child { border-bottom: none; }
+    .skill-cat { font-size: 15px; font-weight: 600; color: var(--text); padding-top: 4px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-tag { font-size: 13px; font-weight: 500; padding: 5px 14px; background: var(--surface); border: 1px solid var(--border-md); border-radius: 999px; color: var(--text-mid); }
+
+    /* EXPERIENCE */
+    .exp-list { display: flex; flex-direction: column; gap: 20px; }
+    .exp-card { border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: var(--r-lg); padding: 30px; background: var(--surface); }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+    .exp-left { display: flex; align-items: flex-start; gap: 16px; flex: 1; min-width: 0; }
+    .exp-logo { width: 52px; height: 52px; border-radius: var(--r-sm); object-fit: contain; border: 1px solid var(--border); background: white; flex-shrink: 0; padding: 4px; }
+    .exp-company { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; margin-bottom: 2px; }
+    .exp-date { font-size: 13px; font-weight: 600; color: var(--text-mute); background: var(--bg); border: 1px solid var(--border-md); padding: 5px 12px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+    .exp-role { font-size: 16px; font-weight: 500; color: var(--blue); margin-bottom: 2px; }
+    .exp-loc { font-size: 13px; color: var(--text-mute); }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .exp-bullets li { font-size: 16px; color: var(--text-mid); line-height: 1.7; padding-left: 18px; position: relative; }
+    .exp-bullets li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+
+    /* PROJECTS */
+    .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .proj-card-v { border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; background: var(--bg); display: flex; flex-direction: column; transition: border-color 0.18s; }
+    .proj-card-v:hover { border-color: var(--blue-bd); }
+    .proj-card-media { background: #0a0a0a; height: 200px; overflow: hidden; position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .proj-card-video { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .proj-gallery-wrap { position: relative; }
+    .proj-gallery-img { width: 100%; height: 100%; object-fit: contain; display: block; transition: opacity 0.18s ease; }
+    .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15); color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.15s; padding: 0; }
+    .gallery-arrow:hover:not(:disabled) { background: rgba(26,86,196,0.75); }
+    .gallery-arrow:disabled { opacity: 0.2; cursor: not-allowed; }
+    .gallery-arrow.prev { left: 8px; }
+    .gallery-arrow.next { right: 8px; }
+    .gallery-counter { position: absolute; bottom: 8px; right: 10px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.75); background: rgba(0,0,0,0.5); padding: 2px 7px; border-radius: 99px; pointer-events: none; font-family: var(--font); }
+    .proj-card-body { padding: 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .proj-context { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); display: block; }
+    .proj-name { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; line-height: 1.35; }
+    .proj-desc-text { font-size: 13px; color: var(--text-mid); line-height: 1.75; }
+    .proj-tech-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .proj-tech-tag { font-size: 10px; font-weight: 600; padding: 3px 9px; background: var(--blue-lt); color: var(--blue-dk); border: 1px solid var(--blue-bd); border-radius: 999px; }
+    .proj-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--blue); background: transparent; border: 1.5px solid var(--blue-bd); padding: 7px 14px; border-radius: var(--r-sm); text-decoration: none; transition: background 0.16s, border-color 0.16s; font-family: var(--font); }
+    .btn-outline:hover { background: var(--blue-lt); border-color: var(--blue); }
+
+    /* CERTIFICATIONS */
+    .certs-inner { max-width: var(--max); margin: 0 auto; padding: 88px 24px; }
+    .slideshow-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 32px; margin-bottom: 16px; }
+    .cert-slide { display: none; }
+    .cert-slide.active { display: block; animation: slideReveal 0.38s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes slideReveal { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+    .cert-img-frame { background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 16px; margin-bottom: 28px; display: flex; justify-content: center; align-items: center; min-height: 200px; }
+    .cert-img { max-width: 100%; max-height: 500px; width: auto; height: auto; display: block; border-radius: 4px; }
+    .cert-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .issuer-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 13px; background: var(--blue-lt); color: var(--blue-dk); border: 1px solid var(--blue-bd); border-radius: 999px; }
+    .cert-date { font-size: 14px; color: var(--text-mute); }
+    .cert-title-el { font-size: 23px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 22px; letter-spacing: -0.01em; }
+    .cert-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 24px; }
+    .cert-quote { font-size: 16px; line-height: 1.85; color: var(--text-mid); font-style: italic; border-left: 3px solid var(--blue); padding-left: 18px; margin-bottom: 20px; }
+    .cert-skill-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .skill-label { font-size: 13px; font-weight: 600; color: var(--text-mute); }
+    .skill-pill { font-size: 13px; font-weight: 600; color: var(--blue-dk); background: var(--blue-lt); border: 1px solid var(--blue-bd); padding: 4px 14px; border-radius: 999px; }
+    .cred-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 600; color: white; background: var(--blue); padding: 10px 22px; border-radius: var(--r-sm); text-decoration: none; transition: background 0.16s, transform 0.12s; font-family: var(--font); }
+    .cred-btn:hover { background: var(--blue-dk); transform: translateY(-1px); }
+    .nav-row { display: flex; align-items: center; gap: 16px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }
+    .ctrl-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--text-mute); background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--r-sm); padding: 9px 18px; cursor: pointer; transition: color 0.15s, border-color 0.15s, background 0.15s; font-family: var(--font); min-width: 90px; justify-content: center; white-space: nowrap; }
+    .ctrl-btn:hover:not(:disabled) { color: var(--blue); border-color: var(--blue); background: var(--blue-lt); }
+    .ctrl-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .progress-track { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; flex-wrap: wrap; }
+    .prog-seg { height: 3px; width: 18px; border-radius: 2px; background: var(--border-md); border: none; cursor: pointer; padding: 0; transition: background 0.2s, width 0.22s; flex-shrink: 0; }
+    .prog-seg.active { background: var(--blue); width: 32px; }
+    .prog-seg:hover:not(.active) { background: var(--blue); opacity: 0.45; }
+    .cert-counter { text-align: center; font-size: 13px; color: var(--text-mute); user-select: none; }
+    .cert-counter strong { color: var(--text); font-weight: 600; }
+
+    /* CONTACT */
+    .contact-wrap { border-top: 1px solid var(--border); padding: 72px 24px; }
+    .contact-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; }
+    .contact-left strong { display: block; font-size: 26px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .contact-left p { font-size: 17px; line-height: 1.7; color: var(--text-mid); max-width: 400px; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+    .contact-link { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: var(--text-mute); text-decoration: none; transition: color 0.15s; }
+    .contact-link:hover { color: var(--blue); }
+    .footer-bar { border-top: 1px solid var(--border); padding: 22px 24px; text-align: center; }
+    .footer-bar p { font-size: 13px; color: var(--text-mute); }
+
+    /* RESPONSIVE */
+    @media (max-width: 780px) {
+      .proj-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav { padding: 0 16px; }
+      .nav-links { gap: 14px; }
+      .nav-links li:nth-child(n+4) { display: none; }
+      .sec { padding: 64px 16px; }
+      #home { padding: 48px 16px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+      .hero-avatar { width: 130px; height: 130px; margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .hero-links { justify-content: center; }
+      .skill-row { grid-template-columns: 1fr; gap: 10px; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .year-row { flex-direction: column; gap: 8px; }
+      .certs-inner { padding: 64px 16px; }
+      .contact-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cert-slide.active { animation: none; }
+      .btn-primary:hover, .cred-btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Site navigation">
+  <a href="#home" class="nav-logo">Ashish <span>Kale</span></a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO + ABOUT -->
+<section id="home">
+  <div class="hero-grid">
+    <div>
+      <img src="images/02.jpg" alt="Ashish Kale" class="hero-avatar">
+    </div>
+    <div>
+      <h1 class="hero-name">Ashish Kale</h1>
+      <p class="hero-tagline">Robotics Engineer. Computer Vision. Automation.</p>
+      <p class="hero-sub">MS Robotics at Purdue University &nbsp;·&nbsp; Computer Vision Intern at Kulicke and Soffa</p>
+      <p class="hero-bio">I build physical systems at the intersection of perception, motion, and learning. My work spans vision algorithm development, embedded robotics, and autonomous fleet systems, on real hardware rather than simulation alone.</p>
+      <div class="hero-divider"></div>
+      <div class="hero-actions">
+        <a href="https://github.com/AshishKale1234" target="_blank" rel="noopener" class="btn-primary">
+          GitHub
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/ashishkale2003" target="_blank" rel="noopener" class="btn-secondary">LinkedIn</a>
+      </div>
+      <div class="hero-links">
+        <a href="mailto:kaleashish.0027@gmail.com" class="hero-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          kaleashish.0027@gmail.com
+        </a>
+        <a href="tel:+17655435345" class="hero-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +1 765 543 5345
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<div class="alt-bg">
+<div class="sec" id="education">
+  <span class="eyebrow">Academic Record</span>
+  <h2 class="sec-title">Education</h2>
+  <p class="sec-sub">Coursework spanning robotics, control systems, AI, embedded systems, and mechanical engineering.</p>
+
+  <div class="edu-grid">
+
+    <!-- Purdue -->
+    <div class="edu-uni-card">
+      <div class="edu-uni-header">
+        <img src="images/logos/logo-purdue.png" alt="Purdue University" class="edu-uni-logo">
+        <div>
+          <div class="edu-uni-name">Purdue University</div>
+          <div class="edu-uni-degree">MS Robotics</div>
+          <div class="edu-uni-meta">GPA 3.78/4.0 &nbsp;·&nbsp; Minors in IoT and Autonomy &nbsp;·&nbsp; Aug 2024 to May 2027 (expected)</div>
+        </div>
+      </div>
+      <div class="courses-block">
+        <div class="courses-label">Coursework</div>
+        <div class="year-row">
+          <span class="year-tag">Current</span>
+          <div class="course-chips">
+            <span class="chip">Introduction to Robotics (ECE 56900)</span>
+            <span class="chip">Autonomous Systems (ME 59700)</span>
+            <span class="chip">Mechatronics (ME 58800)</span>
+            <span class="chip">Industrial Robotics and Flexible Assembly (IE 57400)</span>
+            <span class="chip">Artificial Intelligence (ECE 57000)</span>
+            <span class="chip">Industrial IoT Implementation for Smart Manufacturing (ME 59700II)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIT-WPU -->
+    <div class="edu-uni-card">
+      <div class="edu-uni-header">
+        <img src="images/logos/logo-mitwpu.png" alt="MIT-WPU" class="edu-uni-logo">
+        <div>
+          <div class="edu-uni-name">MIT World Peace University, Pune</div>
+          <div class="edu-uni-degree">B.Tech Mechanical Engineering (Robotics and Automation)</div>
+          <div class="edu-uni-meta">GPA 9.73/10 &nbsp;·&nbsp; 2020 to 2024</div>
+        </div>
+      </div>
+      <div class="courses-block">
+        <div class="courses-label">Relevant Coursework</div>
+
+        <div class="year-row">
+          <span class="year-tag">Year 1</span>
+          <div class="course-chips">
+            <span class="chip">Linear Algebra and Differential Calculus</span>
+            <span class="chip">Physics</span>
+            <span class="chip">Engineering Graphics</span>
+            <span class="chip">Workshop Practices</span>
+            <span class="chip">Mechanics</span>
+            <span class="chip">Material Science</span>
+            <span class="chip">Basics of Mechanical Engineering</span>
+            <span class="chip">Integral Calculus</span>
+            <span class="chip">Chemistry</span>
+            <span class="chip">Programming and Problem Solving</span>
+            <span class="chip">Basics of Electrical and Electronics Engineering</span>
+            <span class="chip">Design Thinking Laboratory</span>
+          </div>
+        </div>
+
+        <div class="year-row">
+          <span class="year-tag">Year 2</span>
+          <div class="course-chips">
+            <span class="chip">Differential Equations and Transform Techniques</span>
+            <span class="chip">Strength of Materials</span>
+            <span class="chip">Robot Kinematics</span>
+            <span class="chip">Sensor Technology</span>
+            <span class="chip">Hydraulics and Pneumatics</span>
+            <span class="chip">Basic IoT Laboratory</span>
+            <span class="chip">Applied Electrical and Electronics Engineering</span>
+            <span class="chip">Probability and Statistics</span>
+            <span class="chip">Manufacturing Science</span>
+            <span class="chip">Robot Dynamics and Manipulator Design</span>
+            <span class="chip">Heat Power Engineering</span>
+            <span class="chip">Control Systems</span>
+            <span class="chip">Robotics Engineering Software Lab</span>
+          </div>
+        </div>
+
+        <div class="year-row">
+          <span class="year-tag">Year 3</span>
+          <div class="course-chips">
+            <span class="chip">Microcontroller and Applications</span>
+            <span class="chip">Industrial Robot Applications</span>
+            <span class="chip">Robot Drive Systems and Programming</span>
+            <span class="chip">Computer Integrated Manufacturing Systems</span>
+            <span class="chip">Data Science for Engineers</span>
+            <span class="chip">Artificial Intelligence and Machine Learning</span>
+            <span class="chip">Industrial Automation</span>
+            <span class="chip">Robotic System Design</span>
+            <span class="chip">IoT in Manufacturing</span>
+            <span class="chip">Additive and Digital Manufacturing</span>
+          </div>
+        </div>
+
+        <div class="year-row">
+          <span class="year-tag">Year 4</span>
+          <div class="course-chips">
+            <span class="chip">Mechatronic Systems</span>
+            <span class="chip">Robot Vision and Perception</span>
+            <span class="chip">NanoScience and Technology</span>
+            <span class="chip">Product Design and Development</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /edu-grid -->
+</div>
+</div>
+
+<!-- SKILLS -->
+<div class="sep">
+<div class="sec" id="skills">
+  <span class="eyebrow">Technical Stack</span>
+  <h2 class="sec-title">Skills</h2>
+  <p class="sec-sub">Six categories covering the full breadth of my work, from mechanical design through to deployed software and AI systems.</p>
+  <div class="skills-wrap">
+
+    <div class="skill-row">
+      <span class="skill-cat">CAD and Mechanical Design</span>
+      <div class="skill-tags">
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Fusion 360</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">CATIA</span>
+        <span class="skill-tag">GD&amp;T</span>
+        <span class="skill-tag">DFM</span>
+        <span class="skill-tag">3D Printing</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Simulation and Analysis</span>
+      <div class="skill-tags">
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">Simulink</span>
+        <span class="skill-tag">Gazebo Harmonic</span>
+        <span class="skill-tag">ANSYS FEA</span>
+        <span class="skill-tag">CoppeliaSim</span>
+        <span class="skill-tag">RViz</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Embedded and Microcontrollers</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Arduino</span>
+        <span class="skill-tag">Arduino IDE</span>
+        <span class="skill-tag">Raspberry Pi</span>
+        <span class="skill-tag">PCA9685</span>
+        <span class="skill-tag">STM32</span>
+        <span class="skill-tag">Embedded Systems</span>
+        <span class="skill-tag">IoT</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Robotics Hardware</span>
+      <div class="skill-tags">
+        <span class="skill-tag">TurtleBot3</span>
+        <span class="skill-tag">UR3e</span>
+        <span class="skill-tag">Techman TM-12</span>
+        <span class="skill-tag">Fetch Freight 100</span>
+        <span class="skill-tag">SO-101 Arms</span>
+        <span class="skill-tag">RoboDK</span>
+        <span class="skill-tag">TMflow</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Computer Vision and Perception</span>
+      <div class="skill-tags">
+        <span class="skill-tag">OpenCV</span>
+        <span class="skill-tag">Image Processing</span>
+        <span class="skill-tag">Machine Vision</span>
+        <span class="skill-tag">Computer Vision</span>
+        <span class="skill-tag">Deep Learning</span>
+        <span class="skill-tag">Convolutional Neural Networks</span>
+        <span class="skill-tag">Object Detection</span>
+        <span class="skill-tag">Instance Segmentation</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">Keras</span>
+        <span class="skill-tag">Intel RealSense</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Programming and Control</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">C++</span>
+        <span class="skill-tag">ROS 2</span>
+        <span class="skill-tag">Machine Learning</span>
+        <span class="skill-tag">Scikit-Learn</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">PID</span>
+        <span class="skill-tag">SLAM</span>
+        <span class="skill-tag">Path Planning</span>
+        <span class="skill-tag">Sensor Fusion</span>
+        <span class="skill-tag">PLC (Siemens)</span>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <span class="skill-cat">Development Tools</span>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Linux (Ubuntu 24.04)</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">UiPath (RPA)</span>
+        <span class="skill-tag">Flask</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="alt-bg">
+<div class="sec" id="experience">
+  <span class="eyebrow">Work</span>
+  <h2 class="sec-title">Experience</h2>
+  <p class="sec-sub">Building production-grade vision and robotics systems in real engineering environments.</p>
+  <div class="exp-list">
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-left">
+          <img src="images/logos/logo-ks.png" alt="Kulicke and Soffa logo" class="exp-logo">
+          <div>
+            <div class="exp-company">Kulicke and Soffa (K&amp;S)</div>
+            <div class="exp-role">Computer Vision Intern</div>
+            <div class="exp-loc">Fort Washington, PA</div>
+          </div>
+        </div>
+        <span class="exp-date">May 2026 to Aug 2026</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Designed optics and illumination systems for high-precision vision inspection in semiconductor wire and ball bonding.</li>
+        <li>Characterized camera sensors across imaging configurations, benchmarking resolution, noise, and dynamic range.</li>
+        <li>Developed and optimized vision algorithms for automated quality inspection in production packaging pipelines.</li>
+        <li>Integrated vision system outputs with multi-DOF robotic motion control for closed-loop inspection and correction.</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-left">
+          <img src="images/logos/logo-c4i4.png" alt="C4i4 Lab logo" class="exp-logo">
+          <div>
+            <div class="exp-company">Centre for Industry 4.0 (C4i4) Lab</div>
+            <div class="exp-role">Vision and Automation Intern</div>
+            <div class="exp-loc">Pune, Maharashtra, India</div>
+          </div>
+        </div>
+        <span class="exp-date">Jan 2025 to May 2025</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Designed and commissioned a Siemens PLC-controlled indexing system integrated with a Baumer industrial camera for automated visual inspection of threaded parts, reducing manual handling error by 50%.</li>
+        <li>Engineered an edge-based metrology station using Intel RealSense D435 and NVIDIA Jetson Orin Nano for on-device real-time diameter measurement of round parts with zero cloud dependency.</li>
+        <li>Built a Raspberry Pi and Camera Module 3 remote monitoring system streaming live video via Flask and OpenCV for facility-wide equipment surveillance.</li>
+        <li>Developed a full-stack visitor and trainee management system using Flask, automated email pipelines, and Google Sheets integration, digitizing a manual workflow end to end.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- PROJECTS -->
+<div class="alt-bg" id="projects">
+<div class="sec">
+  <span class="eyebrow">Selected Work</span>
+  <h2 class="sec-title">Projects</h2>
+  <p class="sec-sub">Hardware and software systems built and tested on real robots.</p>
+
+  <div class="proj-grid">
+
+    <!-- Card 1: Collaborative Robot -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/cobot-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">MIT-WPU Capstone &nbsp;·&nbsp; 2024-25 &nbsp;·&nbsp; Team</span>
+        <h3 class="proj-name">Design and Development of a Collaborative Robot</h3>
+        <p class="proj-desc-text">Built a 4-DOF collaborative robot arm from scratch with three teammates. PLA 3D-printed links designed in Fusion 360, driven by Waveshare serial servo motors. Taught by physical guidance: move the arm to record, replay to execute. Achieved 0.5mm positional accuracy and 0.1mm repeatability.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">Fusion 360</span>
+          <span class="proj-tech-tag">3D Printing</span>
+          <span class="proj-tech-tag">ESP32</span>
+          <span class="proj-tech-tag">Serial Servos</span>
+          <span class="proj-tech-tag">STServo SDK</span>
+        </div>
+        <div class="proj-actions">
+          <a href="documents/cobot-report.pdf" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Report
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Cobot-AMR Pick-and-Place Integration -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/cobot-amr-integration-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue IE 574 &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Team</span>
+        <h3 class="proj-name">Cobot-AMR Pick-and-Place Integration</h3>
+        <p class="proj-desc-text">Together with my incredible teammates, I built a fully automated multi-robot workflow at Purdue's Build@Scale Lab. We programmed two Techman cobots (TM-12S and TM-12) for pick-and-place operations and a Fetch Freight 100 AMR for autonomous cart transport between stations. The entire 6-task routine, from cup placement through magnet insertion to return, ran end to end without human intervention, orchestrated through Node-RED using Modbus for cobot control and HTTP triggers/webhooks for AMR coordination via FetchCore.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Techman TM-12/TM-12S</span>
+          <span class="proj-tech-tag">Fetch Freight 100</span>
+          <span class="proj-tech-tag">Node-RED</span>
+          <span class="proj-tech-tag">Modbus</span>
+          <span class="proj-tech-tag">FetchCore</span>
+          <span class="proj-tech-tag">TMflow</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Imitation Learning for Robotic Manipulation -->
+    <div class="proj-card-v">
+      <div class="proj-card-media proj-gallery-wrap" id="imit-gallery">
+        <video class="proj-card-video" id="imit-video" controls preload="metadata" playsinline>
+          <source src="videos/imit-jenga.mp4" type="video/mp4" id="imit-source">
+        </video>
+        <button class="gallery-arrow prev" id="imit-prev" aria-label="Previous" disabled>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="gallery-arrow next" id="imit-next" aria-label="Next">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="gallery-counter" id="imit-counter">1 / 3</span>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue IE 574 &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Team</span>
+        <h3 class="proj-name">Visuomotor Imitation Learning for Robotic Pick-and-Place and Precision Manipulation</h3>
+        <p class="proj-desc-text">Working with my teammates, I built an imitation learning pipeline for robotic manipulation using SO-101 leader-follower arms, the LeRobot framework, and a RealSense camera. We collected teleoperation demonstrations (100 episodes for pick-and-place, 30 for USB insertion, 16 for component disassembly), trained ACT visuomotor policies on a Google Colab A100, and deployed them on real hardware for autonomous execution.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">SO-101 Arms</span>
+          <span class="proj-tech-tag">LeRobot</span>
+          <span class="proj-tech-tag">ACT Policy</span>
+          <span class="proj-tech-tag">Intel RealSense</span>
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">Google Colab (A100)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: CNC Cutting Anomaly Detection -->
+    <div class="proj-card-v">
+      <div class="proj-card-media proj-gallery-wrap" id="cnc-gallery">
+        <img src="images/projects/cnc-dashboard.png" alt="Streamlit dashboard: upload and threshold controls" class="proj-gallery-img" id="cnc-img" loading="lazy">
+        <button class="gallery-arrow prev" id="cnc-prev" aria-label="Previous" disabled>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="gallery-arrow next" id="cnc-next" aria-label="Next">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="gallery-counter" id="cnc-counter">1 / 4</span>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 597 IIoT &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Team</span>
+        <h3 class="proj-name">Acoustic-Based CNC Cutting Anomaly Detection</h3>
+        <p class="proj-desc-text">Led the ML engineering for an acoustic anomaly detection system for CNC machining, built in collaboration with Maijker Corp and Purdue's MMRL. Trained a CNN on Mel spectrograms from a Maijker stethoscope sensor to classify stable vs. anomalous cutting in real time. Achieved 86% anomaly precision (0.91 ROC-AUC), validated on blind titanium cutting tests, and deployed as a Streamlit dashboard with TFLite for edge-ready inference.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">TensorFlow</span>
+          <span class="proj-tech-tag">CNN</span>
+          <span class="proj-tech-tag">Mel Spectrograms</span>
+          <span class="proj-tech-tag">TFLite</span>
+          <span class="proj-tech-tag">Streamlit</span>
+          <span class="proj-tech-tag">Librosa</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/CNC_cutting_anomaly_detection" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a href="documents/cnc-anomaly-report.pdf" target="_blank" rel="noopener" class="btn-outline">Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: STORM Competition Robot -->
+    <div class="proj-card-v">
+      <div class="proj-card-media proj-gallery-wrap" id="storm-gallery">
+        <img src="images/projects/storm-front.jpeg" alt="STORM robot front view showing launcher hopper and electronics" class="proj-gallery-img" id="storm-img" loading="lazy">
+        <button class="gallery-arrow prev" id="storm-prev" aria-label="Previous" disabled>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="gallery-arrow next" id="storm-next" aria-label="Next">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="gallery-counter" id="storm-counter">1 / 3</span>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 588 &nbsp;·&nbsp; Spring 2026 &nbsp;·&nbsp; Team</span>
+        <h3 class="proj-name">Autonomous Mechatronic Robot with Dual-Arduino, PID Control, FSM &amp; BLDC Actuation</h3>
+        <p class="proj-desc-text">Built an autonomous competition robot with my teammates for the ME 588 STORM challenge. The bot follows taped lines using a SparkFun 8-sensor IR array with PD control, detects opponent-controlled HILLs via IR beacon frequency classification (750/1500 Hz), and launches foam balls with a BLDC flywheel and servo-gated hopper. Runs on a dual-Arduino architecture with an 9-state FSM, dual PCA9685 servo drivers at separate frequencies (1000 Hz for drive, 50 Hz for launcher), and an IR voting system for launch decisions.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Arduino</span>
+          <span class="proj-tech-tag">PCA9685</span>
+          <span class="proj-tech-tag">PID Control</span>
+          <span class="proj-tech-tag">FSM</span>
+          <span class="proj-tech-tag">IR Sensing</span>
+          <span class="proj-tech-tag">BLDC / ESC</span>
+          <span class="proj-tech-tag">3D Printing</span>
+        </div>
+        <div class="proj-actions">
+          <a href="documents/storm-report.pdf" target="_blank" rel="noopener" class="btn-outline">Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: UR3e Trajectory Planning -->
+    <div class="proj-card-v">
+      <div class="proj-card-media proj-gallery-wrap" id="ur3e-gallery">
+        <!-- Video shown first -->
+        <video class="proj-card-video" id="ur3e-video" controls preload="metadata" playsinline>
+          <source src="videos/ur3e-demo.mp4" type="video/mp4">
+        </video>
+        <!-- Image swapped in for slides 2-5 -->
+        <img src="" alt="" class="proj-gallery-img" id="ur3e-img" loading="lazy" style="display:none;transition:opacity 0.12s ease;">
+        <button class="gallery-arrow prev" id="ur3e-prev" aria-label="Previous" disabled>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="gallery-arrow next" id="ur3e-next" aria-label="Next">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="gallery-counter" id="ur3e-counter">1 / 5</span>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ECE 569 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">Smooth Trajectory Planning &amp; Kinematic Simulation of a UR3e Industrial Robot</h3>
+        <p class="proj-desc-text">Designed a custom Lissajous trajectory for a UR3e arm using Modern Robotics (Product of Exponentials). Implemented FK in Space and Body frames, iterative IK via Body Jacobian, and trapezoidal velocity profiling with singularity avoidance. Exported joint solutions to CSV and replayed live in ROS 2 with RViz tool-trace visualization and LED-controlled light-painting.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">MATLAB</span>
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">ROS 2</span>
+          <span class="proj-tech-tag">RViz</span>
+          <span class="proj-tech-tag">UR3e</span>
+          <span class="proj-tech-tag">Product of Exponentials</span>
+          <span class="proj-tech-tag">Jacobian IK</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/Smooth_Trajectory_Planning_-_Kinematic_Simulation_of_a_UR3e_Industrial_Robot" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a href="https://github.com/AshishKale1234/Smooth_Trajectory_Planning_-_Kinematic_Simulation_of_a_UR3e_Industrial_Robot/blob/main/ECE569_Fall_2025_Lab_4_Ashish_Kale.pdf" target="_blank" rel="noopener" class="btn-outline">Report</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Search and Localization -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/search-localize-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 597 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">Search and Localization of Colored Objects (No Nav2)</h3>
+        <p class="proj-desc-text">Autonomous search and localization of colored spherical objects in a known indoor environment using TurtleBot3 in Gazebo. Fuses camera-based color detection with LiDAR range and bearing data to estimate object positions in the global map frame. Uses AMCL for localization, waypoint-based exploration with 360-degree scanning, and publishes detected positions to color-specific ROS topics, all without the Nav2 stack.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">ROS 2</span>
+          <span class="proj-tech-tag">Gazebo</span>
+          <span class="proj-tech-tag">TurtleBot3</span>
+          <span class="proj-tech-tag">AMCL</span>
+          <span class="proj-tech-tag">LiDAR</span>
+          <span class="proj-tech-tag">OpenCV</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/Search_and_Localization_of_colored_balls_in_a_space_whose_map_is_known_without_Nav2" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Autonomous Mapping without Nav2 -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/autonomous-mapping-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 597 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">Autonomous Mapping without Nav2</h3>
+        <p class="proj-desc-text">Fully autonomous exploration and mapping of an unknown indoor environment using TurtleBot3 in Gazebo. Implements frontier-based exploration with custom global planning and reactive obstacle avoidance. Runs online SLAM via slam_toolbox to generate occupancy grid maps (.pgm/.yaml) with no teleoperation, no predefined waypoints, and no Nav2.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">ROS 2</span>
+          <span class="proj-tech-tag">Gazebo</span>
+          <span class="proj-tech-tag">TurtleBot3</span>
+          <span class="proj-tech-tag">SLAM Toolbox</span>
+          <span class="proj-tech-tag">Frontier Exploration</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/Autonomous_Mapping_without_Nav2" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: A* Navigation -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/astar-navigation-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 597 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">A* Autonomous Navigation (Sim + Hardware)</h3>
+        <p class="proj-desc-text">Custom A* path planning and autonomous navigation for TurtleBot4 in ROS 2 Humble. Loads occupancy grid maps, inflates obstacles by robot footprint, builds an 8-connected graph, and plans paths with Euclidean-heuristic A*. A lookahead-based path follower with exponential velocity smoothing drives the robot. Deployed on both Gazebo simulation and physical TurtleBot4 hardware using AMCL localization.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">ROS 2</span>
+          <span class="proj-tech-tag">Gazebo</span>
+          <span class="proj-tech-tag">TurtleBot4</span>
+          <span class="proj-tech-tag">A*</span>
+          <span class="proj-tech-tag">AMCL</span>
+          <span class="proj-tech-tag">SLAM Toolbox</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/A_star-Navigation" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Obstacle Avoidance A* + RRT* -->
+    <div class="proj-card-v">
+      <div class="proj-card-media">
+        <video class="proj-card-video" controls preload="metadata" playsinline>
+          <source src="videos/obstacle-avoidance-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ME 597 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">Obstacle Avoidance with A* and Local RRT* Re-planning</h3>
+        <p class="proj-desc-text">Autonomous navigation on a known map using A* for global path planning and a local RRT* replanner triggered for dynamic obstacle avoidance. TurtleBot3 localizes with AMCL on a pre-built map and accepts goals interactively through RViz. Fully custom planning, control, and re-planning pipeline with no Nav2 dependency.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">ROS 2</span>
+          <span class="proj-tech-tag">Gazebo</span>
+          <span class="proj-tech-tag">TurtleBot3</span>
+          <span class="proj-tech-tag">A*</span>
+          <span class="proj-tech-tag">RRT*</span>
+          <span class="proj-tech-tag">AMCL</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/Obstacle_Avoidance_using_A_star_local_RRT__starre_planner_on_a_known_map_without_Nav2" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7: Brain Tumor ResNet50 -->
+    <div class="proj-card-v">
+      <div class="proj-card-media proj-gallery-wrap" id="bt-gallery">
+        <img src="images/projects/brain-tumor-1.png" alt="Grad-CAM visualization" class="proj-gallery-img" id="bt-img" loading="lazy">
+        <button class="gallery-arrow prev" id="bt-prev" aria-label="Previous image" disabled>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="gallery-arrow next" id="bt-next" aria-label="Next image">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="gallery-counter" id="bt-counter">1 / 4</span>
+      </div>
+      <div class="proj-card-body">
+        <span class="proj-context">Purdue ECE 57000 &nbsp;·&nbsp; Fall 2025 &nbsp;·&nbsp; Individual</span>
+        <h3 class="proj-name">Two-Stage ResNet50 for Brain Tumor Detection and Subtype Classification</h3>
+        <p class="proj-desc-text">Built a two-stage ResNet50 pipeline for MRI brain tumor analysis. Stage 1 detects tumors at 93.3% accuracy; Stage 2 classifies into 4 subtypes at 86.9% with Grad-CAM interpretability. Deployed as a Streamlit web app.</p>
+        <div class="proj-tech-tags">
+          <span class="proj-tech-tag">Python</span>
+          <span class="proj-tech-tag">TensorFlow</span>
+          <span class="proj-tech-tag">ResNet-50</span>
+          <span class="proj-tech-tag">Grad-CAM</span>
+          <span class="proj-tech-tag">Streamlit</span>
+          <span class="proj-tech-tag">scikit-learn</span>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/AshishKale1234/Two_Stage_ResNet-50_Pipeline_for_Brain_Tumor_Detection_and_Subtype_Classification" target="_blank" rel="noopener" class="btn-primary" style="font-size:12px;padding:7px 14px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a href="documents/brain-tumor-report.pdf" target="_blank" rel="noopener" class="btn-outline">Report</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /proj-grid -->
+
+</div><!-- /.sec -->
+</div><!-- /.alt-bg projects -->
+
+<!-- CERTIFICATIONS -->
+<div class="alt-bg" id="certifications">
+<div class="certs-inner">
+  <span class="eyebrow">Credentials</span>
+  <h2 class="sec-title">Certifications</h2>
+  <p class="sec-sub">Self-driven learning across robotics, AI, control systems, and engineering tools. Each certificate marks a skill gap I chose to close deliberately.</p>
+
+  <div class="slideshow-card" id="slideshow-card">
+    <div id="slides-container"></div>
+    <div class="nav-row">
+      <button class="ctrl-btn" id="prev-btn" aria-label="Previous certificate">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Prev
+      </button>
+      <div class="progress-track" id="progress-track" role="tablist" aria-label="Certificate navigation"></div>
+      <button class="ctrl-btn" id="next-btn" aria-label="Next certificate">
+        Next
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="cert-counter" id="cert-counter" aria-live="polite"><strong>1</strong> of 12</p>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+<div class="contact-inner">
+  <div class="contact-left">
+    <strong>Get in Touch</strong>
+    <p>Feel free to reach out for engineering discussions, collaborations, or any opportunities.</p>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:kaleashish.0027@gmail.com" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      kaleashish.0027@gmail.com
+    </a>
+    <a href="tel:+17655435345" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +1 765 543 5345
+    </a>
+    <a href="https://linkedin.com/in/ashishkale2003" target="_blank" rel="noopener" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/ashishkale2003
+    </a>
+    <a href="https://github.com/AshishKale1234" target="_blank" rel="noopener" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      github.com/AshishKale1234
+    </a>
+  </div>
+</div>
+</div>
+
+<div class="footer-bar">
+  <p>Ashish Kale &nbsp;·&nbsp; Robotics Engineer &nbsp;·&nbsp; Purdue University</p>
+</div>
+
+<script>
+  /* ===================== CERTIFICATIONS SLIDESHOW ===================== */
+  const certs = [
+    { title:"Fusion 360 Complete Course", issuer:"Udemy", date:"June 22, 2024", image:"images/certificates/cert-fusion360.png", link:"https://www.udemy.com/certificate/UC-086176c5-6667-4909-bbd9-d37aecc7bef1/", quote:"Parametric design taught me that constraint is not limitation. It is the foundation of precision engineering.", skill:"Parametric CAD and 3D Modeling" },
+    { title:"Image Processing Onramp", issuer:"MathWorks", date:"October 5, 2025", image:"images/certificates/cert-image-processing.png", link:"https://matlabacademy.mathworks.com/progress/share/certificate.html?id=2c7ae3da-87c9-4329-b655-3c1b3a782a9b&", quote:"Every pixel holds information. This course trained me to extract it systematically before writing a single line of custom code.", skill:"Digital Image Processing in MATLAB" },
+    { title:"Machine Learning Practical Workout", issuer:"Udemy", date:"July 25, 2025", image:"images/certificates/cert-ml-workout.png", link:"https://www.udemy.com/certificate/UC-046c87ff-4cde-4eed-8957-1aa9d196384b/", quote:"Theory explains the why. Eight real-world projects taught me to navigate the messy distance between a trained model and a deployed system.", skill:"Applied Machine Learning and Model Deployment" },
+    { title:"Introduction to Deep Learning", issuer:"Great Learning", date:"July 13, 2025", image:"images/certificates/cert-deep-learning.png", link:null, quote:"Depth in a neural network mirrors depth in engineering intuition. Each layer of abstraction unlocks a new layer of insight.", skill:"Neural Network Architecture and Training" },
+    { title:"AI For Everyone", issuer:"DeepLearning.AI / Coursera", date:"June 13, 2025", image:"images/certificates/cert-ai-for-everyone.png", link:"https://www.coursera.org/account/accomplishments/verify/SA04D31YTZB1", quote:"Andrew Ng dismantled the myth: AI is not magic. It is applied mathematics with a deliberately chosen purpose and a measurable outcome.", skill:"AI Strategy, Ethics, and Cross-Functional Communication" },
+    { title:"Robotics and AI", issuer:"Great Learning Academy", date:"September 2024", image:"images/certificates/cert-robotics-ai.png", link:null, quote:"Intelligence in machines begins with understanding the physics of the world they are built to inhabit.", skill:"AI-Driven Robotics Integration" },
+    { title:"Simulink Onramp", issuer:"MathWorks", date:"September 21, 2024", image:"images/certificates/cert-simulink-onramp.png", link:"https://matlabacademy.mathworks.com/progress/share/certificate.html?id=7076340a-bf31-4070-973c-f3a7e63da53c&", quote:"Modeling before building is not hesitation. It is the engineering discipline that saves costly iterations on real hardware.", skill:"Model-Based Design and System Simulation" },
+    { title:"Automatic Control", issuer:"NPTEL / IIT Roorkee", date:"January to March 2023", image:"images/certificates/cert-nptel-control.png", link:null, quote:"Stability is not a destination. Automatic control theory revealed it as a continuous and deliberate negotiation with feedback.", skill:"Control Systems Theory and Stability Analysis" },
+    { title:"National Academic Immersion Program (NAIP)", issuer:"NITTTR-Siemens Center of Excellence", date:"April 24, 2023", image:"images/certificates/cert-nitttr-siemens.png", link:null, quote:"Two weeks at the NITTTR-Siemens Industrial Automation Lab proved one thing: automation is not theory. It runs the factory floor.", skill:"Industrial Automation and PLC Programming" },
+    { title:"Control Design Onramp with Simulink", issuer:"MathWorks", date:"September 19, 2024", image:"images/certificates/cert-control-design.png", link:"https://matlabacademy.mathworks.com/progress/share/certificate.html?id=5292e16e-23d0-4560-9828-2550180c01ca&", quote:"Closing the loop in simulation first is not a shortcut. It is the only rigorous path to hardware you can actually trust.", skill:"PID Tuning and Closed-Loop Control Design" },
+    { title:"MATLAB Onramp", issuer:"MathWorks", date:"August 26, 2024", image:"images/certificates/cert-matlab-onramp.png", link:"https://matlabacademy.mathworks.com/progress/share/certificate.html?id=ae49ec3b-dbff-4015-8caa-bf1db81ca557&", quote:"MATLAB trained me to think in matrices before I fully understood why. Every robotics project since has made the reason obvious.", skill:"Numerical Computing and Script Automation" },
+    { title:"MATLAB Fundamentals", issuer:"MathWorks", date:"October 6, 2024", image:"images/certificates/cert-matlab-fundamentals.png", link:"https://matlabacademy.mathworks.com/progress/share/certificate.html?id=c7ae91d8-5fa1-46ba-a87c-f6f015b89206&", quote:"Fundamentals compound. A disciplined grip on MATLAB arithmetic became the bedrock of every signal processing and control project that followed.", skill:"Scientific Computing and Data Analysis" }
+  ];
+  const TOTAL = certs.length;
+  let current = 0;
+  const extIcon = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  function buildDOM() {
+    const container = document.getElementById('slides-container');
+    const track     = document.getElementById('progress-track');
+    certs.forEach((c, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'cert-slide' + (i === 0 ? ' active' : '');
+      slide.setAttribute('role', 'tabpanel');
+      slide.innerHTML = `
+        <div class="cert-img-frame"><img src="${c.image}" alt="${c.title} certificate" class="cert-img" loading="${i===0?'eager':'lazy'}"></div>
+        <div class="cert-meta"><span class="issuer-badge">${c.issuer}</span><span class="cert-date">${c.date}</span></div>
+        <h3 class="cert-title-el">${c.title}</h3>
+        <hr class="cert-divider">
+        <blockquote class="cert-quote">${c.quote}</blockquote>
+        <div class="cert-skill-row"><span class="skill-label">Key takeaway:</span><span class="skill-pill">${c.skill}</span></div>
+        ${c.link ? `<a href="${c.link}" target="_blank" rel="noopener noreferrer" class="cred-btn">View Credential ${extIcon}</a>` : ''}
+      `;
+      container.appendChild(slide);
+      const seg = document.createElement('button');
+      seg.className = 'prog-seg' + (i === 0 ? ' active' : '');
+      seg.setAttribute('role', 'tab');
+      seg.setAttribute('aria-label', `${c.title} (${i+1} of ${TOTAL})`);
+      seg.addEventListener('click', () => goTo(i));
+      track.appendChild(seg);
+    });
+  }
+  function goTo(index) {
+    const slides = document.querySelectorAll('.cert-slide');
+    const segs   = document.querySelectorAll('.prog-seg');
+    slides[current].classList.remove('active');
+    segs[current].classList.remove('active');
+    current = ((index % TOTAL) + TOTAL) % TOTAL;
+    slides[current].classList.add('active');
+    segs[current].classList.add('active');
+    document.getElementById('cert-counter').innerHTML = `<strong>${current+1}</strong> of ${TOTAL}`;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === TOTAL - 1;
+  }
+  buildDOM();
+  document.getElementById('prev-btn').disabled = true;
+  document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowLeft'  && current > 0)         goTo(current - 1);
+    if (e.key === 'ArrowRight' && current < TOTAL - 1) goTo(current + 1);
+  });
+  let touchX = 0;
+  const card = document.getElementById('slideshow-card');
+  card.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+  card.addEventListener('touchend', e => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) < 50) return;
+    if (diff > 0 && current < TOTAL - 1) goTo(current + 1);
+    if (diff < 0 && current > 0)         goTo(current - 1);
+  });
+
+  /* ===================== NAV ACTIVE HIGHLIGHT ===================== */
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const secIds = ['education','skills','experience','projects','certifications','contact'];
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  secIds.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+
+  /* ===================== UR3e MIXED GALLERY (video + images) ===================== */
+  const ur3eMedia = [
+    { type: 'video' },
+    { type: 'image', src: 'images/projects/ur3e-s-frame.png',  alt: 'Trajectory in {s} frame – MATLAB 3D spiral plot' },
+    { type: 'image', src: 'images/projects/ur3e-desmos.png',   alt: '2D Lissajous path in body frame' },
+    { type: 'image', src: 'images/projects/ur3e-rviz2.png',    alt: 'UR3e executing trajectory in RViz (full view)' },
+    { type: 'image', src: 'images/projects/ur3e-rviz4.png',    alt: 'UR3e trajectory trace in RViz (close-up)' },
+  ];
+  let ur3eIdx = 0;
+  const ur3eVideoEl = document.getElementById('ur3e-video');
+  const ur3eImgEl   = document.getElementById('ur3e-img');
+  const ur3eCtrEl   = document.getElementById('ur3e-counter');
+  const ur3ePrevEl  = document.getElementById('ur3e-prev');
+  const ur3eNextEl  = document.getElementById('ur3e-next');
+
+  function ur3eGoTo(i) {
+    ur3eIdx = Math.max(0, Math.min(i, ur3eMedia.length - 1));
+    const item = ur3eMedia[ur3eIdx];
+    if (item.type === 'video') {
+      ur3eVideoEl.style.display = 'block';
+      ur3eImgEl.style.display   = 'none';
+    } else {
+      if (ur3eVideoEl.style.display !== 'none') ur3eVideoEl.pause();
+      ur3eVideoEl.style.display  = 'none';
+      ur3eImgEl.style.opacity    = '0';
+      setTimeout(() => {
+        ur3eImgEl.src            = item.src;
+        ur3eImgEl.alt            = item.alt;
+        ur3eImgEl.style.display  = 'block';
+        ur3eImgEl.style.opacity  = '1';
+      }, 120);
+    }
+    ur3eCtrEl.textContent = (ur3eIdx + 1) + ' / ' + ur3eMedia.length;
+    ur3ePrevEl.disabled   = ur3eIdx === 0;
+    ur3eNextEl.disabled   = ur3eIdx === ur3eMedia.length - 1;
+  }
+
+  ur3ePrevEl.addEventListener('click', () => ur3eGoTo(ur3eIdx - 1));
+  ur3eNextEl.addEventListener('click', () => ur3eGoTo(ur3eIdx + 1));
+  ur3ePrevEl.disabled = true;
+
+  /* ===================== STORM ROBOT IMAGE GALLERY ===================== */
+  const stormImages = [
+    { src: 'images/projects/storm-front.jpeg',  alt: 'STORM robot front view with launcher hopper and e-stop' },
+    { src: 'images/projects/storm-side.jpeg',   alt: 'STORM robot side view showing 4WD chassis and ball in hopper' },
+    { src: 'images/projects/storm-top.jpeg',    alt: 'STORM robot top-down view of hopper, wiring, and electronics' },
+  ];
+  let stormIdx = 0;
+  const stormImgEl  = document.getElementById('storm-img');
+  const stormCtrEl  = document.getElementById('storm-counter');
+  const stormPrevEl = document.getElementById('storm-prev');
+  const stormNextEl = document.getElementById('storm-next');
+
+  function stormGoTo(i) {
+    stormImgEl.style.opacity = '0';
+    setTimeout(() => {
+      stormIdx = Math.max(0, Math.min(i, stormImages.length - 1));
+      stormImgEl.src = stormImages[stormIdx].src;
+      stormImgEl.alt = stormImages[stormIdx].alt;
+      stormCtrEl.textContent = (stormIdx + 1) + ' / ' + stormImages.length;
+      stormPrevEl.disabled = stormIdx === 0;
+      stormNextEl.disabled = stormIdx === stormImages.length - 1;
+      stormImgEl.style.opacity = '1';
+    }, 120);
+  }
+
+  stormPrevEl.addEventListener('click', () => stormGoTo(stormIdx - 1));
+  stormNextEl.addEventListener('click', () => stormGoTo(stormIdx + 1));
+
+  /* ===================== CNC ANOMALY DETECTION IMAGE GALLERY ===================== */
+  const cncImages = [
+    { src: 'images/projects/cnc-dashboard.png',    alt: 'Streamlit dashboard: upload WAV file and set anomaly threshold' },
+    { src: 'images/projects/cnc-gauge.png',        alt: 'Cutting Anomaly Index gauge at 9.8% STABLE' },
+    { src: 'images/projects/cnc-amplitude.png',    alt: 'RMS amplitude with anomaly regions overlaid and probability timeline' },
+    { src: 'images/projects/cnc-spectrogram.png',  alt: 'Mel spectrogram frequency analysis of machining audio' },
+  ];
+  let cncIdx = 0;
+  const cncImgEl  = document.getElementById('cnc-img');
+  const cncCtrEl  = document.getElementById('cnc-counter');
+  const cncPrevEl = document.getElementById('cnc-prev');
+  const cncNextEl = document.getElementById('cnc-next');
+
+  function cncGoTo(i) {
+    cncImgEl.style.opacity = '0';
+    setTimeout(() => {
+      cncIdx = Math.max(0, Math.min(i, cncImages.length - 1));
+      cncImgEl.src = cncImages[cncIdx].src;
+      cncImgEl.alt = cncImages[cncIdx].alt;
+      cncCtrEl.textContent = (cncIdx + 1) + ' / ' + cncImages.length;
+      cncPrevEl.disabled = cncIdx === 0;
+      cncNextEl.disabled = cncIdx === cncImages.length - 1;
+      cncImgEl.style.opacity = '1';
+    }, 120);
+  }
+
+  cncPrevEl.addEventListener('click', () => cncGoTo(cncIdx - 1));
+  cncNextEl.addEventListener('click', () => cncGoTo(cncIdx + 1));
+
+  /* ===================== IMITATION LEARNING VIDEO GALLERY ===================== */
+  const imitVideos = [
+    { src: 'videos/imit-jenga.mp4',       label: 'Jenga block pick-and-place' },
+    { src: 'videos/imit-usb.mp4',         label: 'USB drive insertion' },
+    { src: 'videos/imit-disassembly.mp4', label: 'Component twist-and-pull disassembly' },
+  ];
+  let imitIdx = 0;
+  const imitVideoEl  = document.getElementById('imit-video');
+  const imitSourceEl = document.getElementById('imit-source');
+  const imitCtrEl    = document.getElementById('imit-counter');
+  const imitPrevEl   = document.getElementById('imit-prev');
+  const imitNextEl   = document.getElementById('imit-next');
+
+  function imitGoTo(i) {
+    imitVideoEl.pause();
+    imitIdx = Math.max(0, Math.min(i, imitVideos.length - 1));
+    imitSourceEl.src = imitVideos[imitIdx].src;
+    imitVideoEl.load();
+    imitCtrEl.textContent = (imitIdx + 1) + ' / ' + imitVideos.length;
+    imitPrevEl.disabled = imitIdx === 0;
+    imitNextEl.disabled = imitIdx === imitVideos.length - 1;
+  }
+
+  imitPrevEl.addEventListener('click', () => imitGoTo(imitIdx - 1));
+  imitNextEl.addEventListener('click', () => imitGoTo(imitIdx + 1));
+
+  /* ===================== BRAIN TUMOR IMAGE GALLERY ===================== */
+  const btImages = [
+    { src: 'images/projects/brain-tumor-1.png', alt: 'Grad-CAM: glioma predicted at 99.64% confidence' },
+    { src: 'images/projects/brain-tumor-2.png', alt: 'Streamlit UI: Meningioma detected at 97.20% Stage 2 confidence' },
+    { src: 'images/projects/brain-tumor-3.png', alt: 'Pituitary tumor detected at 99.76% with Grad-CAM overlay' },
+    { src: 'images/projects/brain-tumor-4.png', alt: 'Meningioma detected at 99.97% with side-by-side Grad-CAM' }
+  ];
+  let btIdx = 0;
+  const btImgEl  = document.getElementById('bt-img');
+  const btCtrEl  = document.getElementById('bt-counter');
+  const btPrevEl = document.getElementById('bt-prev');
+  const btNextEl = document.getElementById('bt-next');
+
+  function btGoTo(i) {
+    btImgEl.style.opacity = '0';
+    setTimeout(() => {
+      btIdx = ((i % btImages.length) + btImages.length) % btImages.length;
+      btImgEl.src = btImages[btIdx].src;
+      btImgEl.alt = btImages[btIdx].alt;
+      btCtrEl.textContent = (btIdx + 1) + ' / ' + btImages.length;
+      btPrevEl.disabled = btIdx === 0;
+      btNextEl.disabled = btIdx === btImages.length - 1;
+      btImgEl.style.opacity = '1';
+    }, 120);
+  }
+
+  btPrevEl.addEventListener('click', () => btGoTo(btIdx - 1));
+  btNextEl.addEventListener('click', () => btGoTo(btIdx + 1));
+</script>
+
+</body>
+</html>
